@@ -62,13 +62,19 @@ module.exports = {
           type: Sequelize.INTEGER,
         },
         name: {
+          allowNull: false,
           type: Sequelize.STRING,
+          unique: true,
         },
         email: {
+          allowNull: false,
           type: Sequelize.STRING,
+          unique: true,
         },
         password: {
+          allowNull: false,
           type: Sequelize.STRING,
+          unique: true,
         },
         role: {
           type: Sequelize.BOOLEAN,
@@ -120,17 +126,14 @@ module.exports = {
         returned_date: {
           type: Sequelize.DATE,
         },
-        image: {
-          type: Sequelize.STRING,
-        },
-        created_at: {
-          allowNull: false,
-          type: Sequelize.DATE,
-        },
-        updated_at: {
-          allowNull: false,
-          type: Sequelize.DATE,
-        },
+        // created_at: {
+        //   allowNull: false,
+        //   type: Sequelize.DATE,
+        // },
+        // updated_at: {
+        //   allowNull: false,
+        //   type: Sequelize.DATE,
+        // },
       });
   },
 
