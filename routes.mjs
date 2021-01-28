@@ -21,4 +21,9 @@ export default function routes(app) {
   app.post('/signup', userController.handleNewUserRegister);
   app.post('/login', userController.handleLoginRequest);
   app.delete('/logout', userController.handleLogoutRequest);
+
+  app.get('/search', booksController.search);
+  app.get('/read/:bookId', userValidatorLib.authenticateRequestUsingCookies, booksController.readBook);
+  app.get('/borrow/:bookId', userValidatorLib.authenticateRequestUsingCookies, booksController.borrowBook);
+  app.get('/return/:bookId', userValidatorLib.authenticateRequestUsingCookies, booksController.returnBook); app.get('/reserve/:bookId', userValidatorLib.authenticateRequestUsingCookies, booksController.reserveBook);
 }
