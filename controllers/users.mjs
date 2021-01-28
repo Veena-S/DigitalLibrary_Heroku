@@ -7,6 +7,72 @@ import generatedHashedValue from '../hashGenerator.mjs';
  */
 export default function users(dbModels) {
   /**
+   * This function validates the given user name against the data retrieved from the database
+   * Also, sends the cookie also along with response
+   * @param loginData - email & password specified in the login request
+   * @param userData - user data retrieved from the database
+   * @param response - to send HTTP response
+   */
+  const validateAndLoginUser = (loginData, userData, response) => {
+    console.log(userData);
+    console.log(userData.email);
+    // Get the hashed value of the user provided password
+    const hashedInputPassword = generatedHashedValue(loginData.password, false);
+    // If the user's hashed password in the database does not
+    // match the hashed input password, login fails
+    if (userData.password !== hashedInputPassword) {
+    // the error for incorrect email and incorrect password are the same for security reasons.
+    // This is to prevent detection of whether a user has an account for a given service.
+      response.status(300).send({ success: false, message: 'Login failed!' });
+    }
+    // Set the cookies and send the response
+    // create an unhashed cookie string based on user ID and salt
+    const hashedCookieString = generatedHashedValue(loginData.email, true);
+    response.cookie('loggedInSession', hashedCookieString);
+    response.cookie('userInfo', loginData.email);
+    response.status(200).send({ success: true, message: 'Logged-in successfully!!', userName: loginData.email });
+  };
+
+  /**
+   * Function that handles the login request.
+   * If the user is not already registered it will ask for confirmation to create a new user,
+   * @param request - http request
+   * @param response http response
+   */
+  const handleLoginRequest = async (request, response) => {
+    console.log('handleLoginRequest');
+    const { email, password } = request.body;
+    const loginData = { email, password };
+    console.log(`loginData: ${loginData.email}, ${loginData.password}`);
+    try {
+      console.log(dbModels.User);
+      request.userInfo = await dbModels.User.findOne({
+        where: { email },
+      });
+      if (request.userInfo === null || request.userInfo === undefined)
+      {
+        response.status(300).send({ success: false, message: 'User not found. Please signup' });
+      }
+      // Once the user data is retrieved from database,
+      // validate it with the given user name and password
+      validateAndLoginUser(loginData, request.userInfo, response);
+    }
+    catch (error)
+    {
+      console.log(error);
+      // throw new Error('User not found. Please Sign-up');
+      response.status(300).send({ success: false, message: 'User not found. Please signup', error });
+    }
+  };
+
+  // Log a user out. Get rid of their cookie.
+  const handleLogoutRequest = (request, response) => {
+    response.clearCookie('loggedInSession');
+    response.clearCookie('userInfo');
+    response.send({ success: true, message: 'Logged out successfully!!' });
+  };
+
+  /**
    *
    * @param request - HTTP request object received through the routes.mjs
    * @param response - HTTP response object received through the routes.mjs
@@ -14,8 +80,8 @@ export default function users(dbModels) {
    *
    * Function that renders the home page
    */
-  const createNewUser = ((request, response) => {
-    console.log('createNewUser');
+  const handleNewUserRegister = ((request, response) => {
+    console.log('handleNewUserRegister');
     const { name, email, password } = request.body;
     const hashedPassword = generatedHashedValue(password, false);
 
@@ -24,8 +90,10 @@ export default function users(dbModels) {
       .then((newUser) => {
         const newUserData = newUser.toJSON();
         console.log(newUserData);
-        // TO DO: Set Cookies
-        response.send({ success: true, newUserData });
+        const hashedCookieString = generatedHashedValue(email, true);
+        response.cookie('loggedInSession', hashedCookieString);
+        response.cookie('userInfo', email);
+        response.send({ success: true, message: 'User registered successfully!!', newUserData });
       })
       .catch((err) => {
         console.log(err);
@@ -83,6 +151,6 @@ export default function users(dbModels) {
 
   // The users() function wil return the functions defined
   return {
-    createNewUser, getAllUsers, getUserByEmail,
+    handleNewUserRegister, getAllUsers, getUserByEmail, handleLoginRequest, handleLogoutRequest,
   };
 }
