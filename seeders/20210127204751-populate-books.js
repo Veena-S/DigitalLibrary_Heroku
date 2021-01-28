@@ -1,24 +1,98 @@
-'use strict';
-
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    /**
-     * Add seed commands here.
-     *
-     * Example:
-     * await queryInterface.bulkInsert('People', [{
-     *   name: 'John Doe',
-     *   isBetaMember: false
-     * }], {});
-    */
+    const booksList = [
+      {
+        title: 'The Youngest Girl in the Fifth: A School Story',
+        author: 'Angela Brazil',
+        author_image: 'Angela_Brazil_large.jpg',
+        genre: "Children's Fiction",
+        language: 'English',
+        summary: "The Youngest Girl in the Fifth By Angela Brazil Excerpt \"Winnie says I'm variable, and I can look nice when I smile, but I'm afraid no one would trouble to look at me twice. If only I were Lesbia now, or even Beatrice! People talk about the flower of a family--well, I expect I'm the weed, as far as appearances go! I haven't had my fair share in the way of good looks.\" It certainly seemed hard that Nature, which had been kind to the Gascoynes in that respect, should have dowered her brothers and sisters so liberally, and have left poor Gwen out in the cold. Her bright little face had an attraction all of its own, of which she was quite unconscious, but she was entirely accustomed to stand aside while strangers noticed and admired her younger sister Lesbia.",
+        content_location: 'pg21687-images.epub',
+        cover_page: 'Youngest_Girl.jpg',
+        released_date: new Date(),
+        total_copies: 1,
+        created_at: new Date(),
+        updated_at: new Date(),
+      },
+      {
+        title: 'The Luckiest Girl in the School',
+        author: 'Angela Brazil',
+        author_image: 'Angela_Brazil_large.jpg',
+        genre: "Children's Fiction",
+        language: 'English',
+        summary: 'A story for juveniles about a girl who, facing a sudden reversal in family fortunes, goes to school as a scholarship student and wins an enviable position for herself.',
+        content_location: 'pg18019-images.epub',
+        cover_page: 'Luckiest_Girl.jpg',
+        released_date: new Date(),
+        total_copies: 1,
+        created_at: new Date(),
+        updated_at: new Date(),
+      },
+      {
+        title: 'The Fortunes of Philippa: A School Story',
+        author: 'Angela Brazil',
+        author_image: 'Angela_Brazil_large.jpg',
+        genre: "Children's Fiction",
+        language: 'English',
+        summary: 'Philippa loves her beautiful South American home, where she lives with her father. An only child, and motherless, it is hard for Philippa to face the idea of leaving her father and her pleasant life for England and school, Aunt Agatha and her cousins. Of course Philippa must go to school and make friends of her own age, but will she be happy in England? Will she find it hard to adapt herself to a different way of life, a different climate? For the first two years in England Philippa studies at home with her cousins; then she goes to school at The Hollies and it is there that she finds a wonderful friend in Cathy Winstanley. School life and holidays with the Winstanley family help Philippa to grow up into a warm and delightful person, with an ever increasing love of England.',
+        content_location: 'pg33387-images.epub',
+        cover_page: 'Fortunes_of_Philippa.jpg',
+        released_date: new Date(),
+        total_copies: 1,
+        created_at: new Date(),
+        updated_at: new Date(),
+      },
+      {
+        title: 'The Enchanted Castle',
+        author: 'Nesbit, E. (Edith)',
+        author_image: 'E_Nesbit_large.jpg',
+        genre: "Children's Fiction",
+        language: 'English',
+        summary: 'Jerry, Jimmy, and Cathy stumble upon a mysterious castle with a beautiful princess asleep in the garden. The princess is really Mabel, the housekeeper\'s niece, who is only pretending to be royalty. But when she shows them a secret room filled with treasure where they discover a magical ring, enchantment becomes a reality.',
+        content_location: 'pg3536.epub',
+        cover_page: 'Enchanted_Castle.jpg',
+        released_date: new Date(),
+        total_copies: 1,
+        created_at: new Date(),
+        updated_at: new Date(),
+      },
+      {
+        title: 'The Little Red Hen',
+        author: 'Florence White Williams',
+        author_image: 'author-default.png',
+        genre: "Children's Fiction",
+        language: 'English',
+        summary: 'The little red hen decides to plant some wheat, but the lazy cat, dog and rat won\'t help her! ',
+        content_location: 'pg18735-images.epub',
+        cover_page: 'Little_Red_Hen.jpg',
+        released_date: new Date(),
+        total_copies: 1,
+        created_at: new Date(),
+        updated_at: new Date(),
+      },
+      {
+        title: 'The Tale of the Pie and the Patty Pan',
+        author: 'Beatrix Potter',
+        author_image: 'Beatrix-Potter-1913.jpg',
+        genre: "Children's Fiction",
+        language: 'English',
+        summary: 'A most genteel little dog and cat become distraught when a patty-pan is found to be missing and feared swallowed.',
+        content_location: 'pg15234-images.epub',
+        cover_page: 'the-tale-of-the-pie-and-the-patty-pan-by.png',
+        released_date: new Date(),
+        total_copies: 1,
+        created_at: new Date(),
+        updated_at: new Date(),
+      },
+
+    ];
+
+    // Insert the users list
+    const books = await queryInterface.bulkInsert('books', booksList, { returning: true });
   },
 
   down: async (queryInterface, Sequelize) => {
-    /**
-     * Add commands to revert seed here.
-     *
-     * Example:
-     * await queryInterface.bulkDelete('People', null, {});
-     */
-  }
+    await queryInterface.bulkDelete('books', null, {});
+  },
 };

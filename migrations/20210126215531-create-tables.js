@@ -10,6 +10,10 @@ module.exports = {
           primaryKey: true,
           type: Sequelize.INTEGER,
         },
+        title: {
+          type: Sequelize.STRING,
+          allowNull: false,
+        },
         author: {
           type: Sequelize.STRING,
         },
@@ -19,17 +23,17 @@ module.exports = {
         genre: {
           type: Sequelize.STRING,
         },
-        publisher: {
-          type: Sequelize.STRING,
-        },
+        // publisher: {
+        //   type: Sequelize.STRING,
+        // },
         language: {
           type: Sequelize.STRING,
         },
-        isbn: {
-          type: Sequelize.STRING,
-        },
+        // isbn: {
+        //   type: Sequelize.STRING,
+        // },
         summary: {
-          type: Sequelize.STRING,
+          type: Sequelize.TEXT,
         },
         content_location: {
           type: Sequelize.STRING,
@@ -37,7 +41,10 @@ module.exports = {
         cover_page: {
           type: Sequelize.STRING,
         },
-        published_date: {
+        // published_date: {
+        //   type: Sequelize.DATE,
+        // },
+        released_date: {
           type: Sequelize.DATE,
         },
         total_copies: {

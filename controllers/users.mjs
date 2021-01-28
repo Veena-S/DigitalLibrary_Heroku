@@ -16,11 +16,11 @@ export default function users(dbModels) {
    */
   const createNewUser = ((request, response) => {
     console.log('createNewUser');
-    const { email, password } = request.body;
+    const { name, email, password } = request.body;
     const hashedPassword = generatedHashedValue(password, false);
 
     console.log(`Request: ${email}, ${password}, Hashed Password: ${hashedPassword}`);
-    dbModels.User.create({ email, password: hashedPassword })
+    dbModels.User.create({ name, email, password: hashedPassword })
       .then((newUser) => {
         const newUserData = newUser.toJSON();
         console.log(newUserData);
@@ -68,7 +68,7 @@ export default function users(dbModels) {
   const getAllUsers = (request, response) => {
     console.log('getAllUsers');
     dbModels.User.findAll({
-      attributes: ['id', 'email'],
+      attributes: ['id', 'name', 'email'],
     })
       .then((returnedUsers) => {
         // console.log(returnedUsers.toJSON());

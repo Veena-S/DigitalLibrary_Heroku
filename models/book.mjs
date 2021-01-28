@@ -6,6 +6,10 @@ export default function bookModel(sequelize, dataTypes) {
       primaryKey: true,
       type: dataTypes.INTEGER,
     },
+    title: {
+      type: dataTypes.STRING,
+      allowNull: false,
+    },
     author: {
       type: dataTypes.STRING,
     },
@@ -15,17 +19,17 @@ export default function bookModel(sequelize, dataTypes) {
     genre: {
       type: dataTypes.STRING,
     },
-    publisher: {
-      type: dataTypes.STRING,
-    },
+    // publisher: {
+    //   type: dataTypes.STRING,
+    // },
     language: {
       type: dataTypes.STRING,
     },
-    isbn: {
-      type: dataTypes.STRING,
-    },
+    // isbn: {
+    //   type: dataTypes.STRING,
+    // },
     summary: {
-      type: dataTypes.STRING,
+      type: dataTypes.TEXT,
     },
     content_location: {
       type: dataTypes.STRING,
@@ -33,7 +37,10 @@ export default function bookModel(sequelize, dataTypes) {
     cover_page: {
       type: dataTypes.STRING,
     },
-    published_date: {
+    // published_date: {
+    //   type: dataTypes.DATE,
+    // },
+    released_date: {
       type: dataTypes.DATE,
     },
     total_copies: {
