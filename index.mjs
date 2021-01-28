@@ -22,6 +22,7 @@ app.use(express.json());
 app.use(methodOverride('_method'));
 // Expose the files stored in the public folder
 app.use(express.static('public'));
+app.use(express.static('public/profilePics'));
 // Expose the files stored in the distribution folder
 app.use(express.static('dist'));
 
