@@ -97,6 +97,6 @@ export default function userValidator(dbModels) {
   };
 
   return {
-    authenticateRequestUsingCookies,
+    authenticateRequestUsingCookies, validateSessionUserByCookies,
   };
 }

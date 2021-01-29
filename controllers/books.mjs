@@ -3,6 +3,19 @@
  * @param db - db model
  */
 export default function books(db) {
+  const getAllBooks = async (request, response) => {
+    try {
+      const booksList = await db.Book.findAll(
+        // { attributes: ['id', 'title', 'author', 'genre', 'language',
+        // 'summary', 'cover_page', 'created_at'],}
+      );
+      response.send({ books: booksList });
+    }
+    catch (error) {
+      response.send(error);
+    }
+  };
+
   /**
    * Function that searches the books table with requested criteria
    * and to return the matching book data
@@ -12,6 +25,34 @@ export default function books(db) {
   const search = async (request, response) => {
     // it will not return the book data.
     // That should be requested through readBook functionality, with proper authentication
+    try {
+      const { key } = request.query;
+      const { value } = request.query;
+      console.log(`search: key = ${key}, value = ${value}  `);
+      const booksList = await db.Book.findAll({
+        attributes: ['id', 'title', 'author', 'genre', 'language', 'summary', 'cover_page', 'created_at'],
+        where: { [key]: { [db.sequelize.like]: `%${value}%` } },
+      });
+      response.send({ books: booksList });
+    }
+    catch (err) {
+      response.send(err);
+    }
+  };
+
+  /**
+   *
+   * @param request
+   * @param response
+   */
+  const searchByBookId = async (request, response) => {
+    try {
+      const booksList = await db.Book.findByPk(request.params.bookId);
+      response.send({ books: booksList });
+    }
+    catch (err) {
+      response.send(err);
+    }
   };
 
   /**
@@ -37,6 +78,6 @@ export default function books(db) {
   };
 
   return {
-    search, readBook, borrowBook, returnBook, reserveBook,
+    getAllBooks, search, searchByBookId, readBook, borrowBook, returnBook, reserveBook,
   };
 }

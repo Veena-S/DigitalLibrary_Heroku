@@ -15,14 +15,15 @@ export default function routes(app) {
 
   // special JS page. Include the webpack index.html file
   app.get('/home', (request, response) => {
-    response.sendFile(resolve('dist', 'main.html'));
-  });
+    response.sendFile(resolve('dist', 'main.html')); });
 
   app.post('/signup', userController.handleNewUserRegister);
   app.post('/login', userController.handleLoginRequest);
   app.delete('/logout', userController.handleLogoutRequest);
 
+  app.get('/all', userValidatorLib.authenticateRequestUsingCookies, booksController.getAllBooks);
   app.get('/search', booksController.search);
+  app.get('/search/:bookId', booksController.searchByBookId);
   app.get('/read/:bookId', userValidatorLib.authenticateRequestUsingCookies, booksController.readBook);
   app.get('/borrow/:bookId', userValidatorLib.authenticateRequestUsingCookies, booksController.borrowBook);
   app.get('/return/:bookId', userValidatorLib.authenticateRequestUsingCookies, booksController.returnBook); app.get('/reserve/:bookId', userValidatorLib.authenticateRequestUsingCookies, booksController.reserveBook);

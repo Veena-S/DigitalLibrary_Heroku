@@ -1,3 +1,15 @@
 body {
   // background-color: pink;
 }
+
+.cover-page {
+  width: 200px !important;
+  height: 300px !important;
+}
+
+.wrap-col {
+  height: 400px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}

@@ -30,7 +30,7 @@ export default function users(dbModels) {
     const hashedCookieString = generatedHashedValue(loginData.email, true);
     response.cookie('loggedInSession', hashedCookieString);
     response.cookie('userInfo', loginData.email);
-    response.status(200).send({ success: true, message: 'Logged-in successfully!!', userName: loginData.email });
+    response.status(200).send({ success: true, message: 'Logged-in successfully!!', userName: userData.name });
   };
 
   /**
