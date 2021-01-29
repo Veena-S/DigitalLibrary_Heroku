@@ -28,7 +28,7 @@ export default function LoginForm({ setLoggedInUser }) {
     axios.post('/login', { email, password })
       .then((responseData) => {
         console.log(responseData.data);
-        setLoggedInUser(responseData.data);
+        setLoggedInUser(responseData.data.userName);
       })
       .catch((error) => {
         console.log(error);

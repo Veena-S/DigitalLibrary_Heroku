@@ -9,7 +9,7 @@ export default function books(db) {
         // { attributes: ['id', 'title', 'author', 'genre', 'language',
         // 'summary', 'cover_page', 'created_at'],}
       );
-      response.send({ books: booksList });
+      response.send({ books: booksList, userName: request.userInfo.name });
     }
     catch (error) {
       response.send(error);

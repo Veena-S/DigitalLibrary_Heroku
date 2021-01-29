@@ -3,7 +3,7 @@ import axios from 'axios';
 
 import DisplayBooksList from './DisplayBooksList.jsx';
 
-export default function ListBooks({ setBooksList }) {
+export default function ListBooks({ setBooksList, setLoggedInUser }) {
   const [allBooksList, setAllBooksList] = useState([]);
 
   const handleGetAllBooks = () => {
@@ -13,6 +13,7 @@ export default function ListBooks({ setBooksList }) {
         console.log([...responseData.data.books]);
         setBooksList([...responseData.data.books]);
         setAllBooksList([...responseData.data.books]);
+        setLoggedInUser(responseData.data.userName);
       })
       .catch((error) => {
         console.log(error);

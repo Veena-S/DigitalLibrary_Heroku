@@ -14,7 +14,7 @@ export default function App() {
       <div className="row">
         <h3 className="text-center mt-4">Digital Library</h3>
       </div>
-      <ListBooks setBooksList={setBooksList} />
+      <ListBooks setBooksList={setBooksList} setLoggedInUser={setLoggedInUser} />
       {loggedInUser === null && (<LoginForm setLoggedInUser={setLoggedInUser} />)}
       {loggedInUser !== null
       && (<SearchBooks setSearchResult={setSearchResult} booksList={[...booksList]} />)}
