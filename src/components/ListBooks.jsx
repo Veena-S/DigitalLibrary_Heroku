@@ -26,7 +26,10 @@ export default function ListBooks({ setBooksList, setLoggedInUser }) {
     <div className="mt-4">
       <div className="row">
         {/* <button type="button" onClick={handleGetAllBooks}>Get all Books</button> */}
-        <DisplayBooksList booksListToDisplay={allBooksList} />
+        <DisplayBooksList
+          booksListToDisplay={allBooksList}
+        />
+
       </div>
     </div>
   );

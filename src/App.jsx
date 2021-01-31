@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import ListBooks from './components/ListBooks.jsx';
 import LoginForm from './components/LoginForm.jsx';
 import SearchBooks from './components/SearchBooks.jsx';
@@ -17,8 +17,15 @@ export default function App() {
       <ListBooks setBooksList={setBooksList} setLoggedInUser={setLoggedInUser} />
       {loggedInUser === null && (<LoginForm setLoggedInUser={setLoggedInUser} />)}
       {loggedInUser !== null
-      && (<SearchBooks setSearchResult={setSearchResult} booksList={[...booksList]} />)}
-      <DisplayBooksList booksListToDisplay={searchResultBooksList} />
+      && (
+      <SearchBooks
+        setSearchResult={setSearchResult}
+        booksList={[...booksList]}
+      />
+      )}
+      <DisplayBooksList
+        booksListToDisplay={searchResultBooksList}
+      />
       {/* {loggedInUser !== null && (<ListBooks setBooksList={setBooksList} />)} */}
     </div>
   );
