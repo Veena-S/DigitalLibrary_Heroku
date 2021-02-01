@@ -4,18 +4,19 @@ import axios from 'axios';
 import DisplayBooksList from './DisplayBooksList.jsx';
 
 export default function ListBooks({
-  setCompleteBooksList,
-  setBookListToDisplay, setBooksPerCategory,
+  setCompleteBooksList, setBookListToDisplay, setBooksPerCategory, setGenreList,
 }) {
   // const [allBooksList, setAllBooksList] = useState([]);
 
   const separateBooksPerCategory = (listOfAllBooks) => {
     const booksPerCategory = {};
     const distinctGenres = [...new Set(listOfAllBooks.map((book) => book.genre))];
+    setGenreList([...distinctGenres]);
+
     // Initializing an entry for each genre in the book list
     distinctGenres.forEach((currGenre) => { booksPerCategory[currGenre] = []; });
     listOfAllBooks.forEach((book) => {
-      booksPerCategory[book.genre].append(book);
+      booksPerCategory[book.genre].push(book);
     });
     setBooksPerCategory({ ...booksPerCategory });
   };
@@ -38,51 +39,14 @@ export default function ListBooks({
   useEffect(() => { handleGetAllBooks(); }, []);
 
   return (
-    <div className="mt-4">
-      <div className="row">
-        {/* <button type="button" onClick={handleGetAllBooks}>Get all Books</button> */}
-        {/* <DisplayBooksList
+    <div>
+      {/* <div className="row"> */}
+      {/* <button type="button" onClick={handleGetAllBooks}>Get all Books</button> */}
+      {/* <DisplayBooksList
           id="all-books-list"
           booksListToDisplay={allBooksList}
         /> */}
-      </div>
+      {/* </div> */}
     </div>
   );
-
-  // return (
-  //   <div>
-  //     <div className="row">
-  //       <button type="button" onClick={handleGetAllBooks}>Get all Books</button>
-  //       {allBooksList.length !== 0 && (
-  //         allBooksList.map((book, index) => (
-  //           <div className="row border">
-  //             <div className="col">
-  //               <img className="cover-page" src={book.cover_page} alt={book.cover_page} />
-  //             </div>
-  //             <div className="col">
-  //               {book.title}
-  //             </div>
-  //             <div className="col">
-  //               {book.author}
-  //             </div>
-  //             <div className="col">
-  //               {book.genre}
-  //             </div>
-  //             <div className="col">
-  //               {book.language}
-  //             </div>
-  //             <div className="col wrap-col">
-  //               {book.summary}
-  //             </div>
-  //             <div className="col">
-  //               {book.created_at}
-  //             </div>
-  //           </div>
-  //         ))
-  //       )}
-  //     </div>
-
-  //   </div>
-
-  // );
 }

@@ -12,7 +12,9 @@ const searchCriteria = [
   'publisher',
 ];
 
-export default function SearchBooks({ setSearchResult, booksList }) {
+export default function SearchBooks({
+  setSearchResult, booksList, genreList, setDisplayeSearchResult,
+}) {
   const [selectedSearchCriteria, setSelectedSearchCriteria] = useState('');
   const [searchByValue, setSearchByValue] = useState('');
 
@@ -36,6 +38,7 @@ export default function SearchBooks({ setSearchResult, booksList }) {
       }
       return false; });
     setSearchResult([...searchResult]);
+    setDisplayeSearchResult(true);
   };
 
   const handleSelectSearchBy = (event) => {
@@ -51,6 +54,7 @@ export default function SearchBooks({ setSearchResult, booksList }) {
       Object.keys(book).forEach((bookProperty) => (bookProperty.search(new RegExp(propertyValue, 'i')) !== -1));
     });
     setSearchResult([...searchResult]);
+    setDisplayeSearchResult(true);
   };
 
   return (
@@ -58,10 +62,9 @@ export default function SearchBooks({ setSearchResult, booksList }) {
       <div className="row pt-3">
         <div className="col">
           <DropdownButton id="genre-nav-dropdown" size="sm" variant="dark" title="Genres">
-            <Dropdown.Item as="button" onClick={() => { handleFilterGenreByProperty('children'); }}>Children</Dropdown.Item>
-            <Dropdown.Item as="button" onClick={() => { handleFilterGenreByProperty('fiction'); }}>Fiction</Dropdown.Item>
-            <Dropdown.Item as="button" onClick={() => { handleFilterGenreByProperty('non-fiction'); }}>Non-Fiction</Dropdown.Item>
-            <Dropdown.Item as="button" onClick={() => { handleFilterGenreByProperty('novel'); }}>Novels</Dropdown.Item>
+            {genreList.map((currGenre, index) => (
+              <Dropdown.Item as="button" key={`genre-${Number(index)}`} onClick={() => { handleFilterGenreByProperty({ currGenre }); }}>{currGenre}</Dropdown.Item>
+            ))}
           </DropdownButton>
         </div>
         <div className="col input-group search-col">

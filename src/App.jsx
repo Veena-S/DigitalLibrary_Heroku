@@ -5,6 +5,7 @@ import SearchBooks from './components/SearchBooks.jsx';
 import DisplayBooksList from './components/DisplayBooksList.jsx';
 import LoginForm from './components/LoginForm.jsx';
 import CustNavbar from './components/Navbar.jsx';
+import BookCards from './components/BookCards.jsx';
 
 export default function App() {
   const [loggedInUser, setLoggedInUser] = useState('Guest');
@@ -12,6 +13,8 @@ export default function App() {
   const [booksPerCategory, setBooksPerCategory] = useState({});
   const [bookListToDisplay, setBookListToDisplay] = useState([]);
   const [showLoginForm, setShowLoginForm] = useState(false);
+  const [genreList, setGenreList] = useState([]);
+  const [displayeSearchResult, setDisplayeSearchResult] = useState(false);
 
   useEffect(() => {
     axios.get('/isLoggedIn')
@@ -35,21 +38,24 @@ export default function App() {
         setLoggedInUser={setLoggedInUser}
         setShowLoginForm={setShowLoginForm}
       />
-
-      {(!showLoginForm)
-      && (
       <ListBooks
         setCompleteBooksList={setCompleteBooksList}
         setBookListToDisplay={setBookListToDisplay}
         setBooksPerCategory={setBooksPerCategory}
+        setGenreList={setGenreList}
       />
-      )}
+      <SearchBooks
+        setSearchResult={setBookListToDisplay}
+        booksList={[...completeBooksList]}
+        genreList={[...genreList]}
+        setDisplayeSearchResult={setDisplayeSearchResult}
+      />
 
-      {(!showLoginForm)
+      {(!displayeSearchResult && !showLoginForm)
+      && (<BookCards booksPerCategory={booksPerCategory} loggedInUser={loggedInUser} />)}
+
+      {(displayeSearchResult && !showLoginForm)
       && (<DisplayBooksList booksListToDisplay={bookListToDisplay} />)}
-
-      {(!showLoginForm) && (
-      <SearchBooks setSearchResult={setBookListToDisplay} booksList={[...completeBooksList]} />)}
 
       {showLoginForm
       && (<LoginForm setLoggedInUser={setLoggedInUser} setShowLoginForm={setShowLoginForm} />)}

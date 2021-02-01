@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import 'bootstrap/js/src/collapse.js';
-import BookDetails from './BookDetails.jsx';
+import BookDetailsNonModal from './BookDetailsNonModal.jsx';
 
 export default function DisplayBooksList({ booksListToDisplay }) {
   return (
@@ -8,11 +8,10 @@ export default function DisplayBooksList({ booksListToDisplay }) {
       {booksListToDisplay.length !== 0 && (
         booksListToDisplay.map((book, index) => (
           <div key={`book-${Number(index)}`}>
-            <BookDetails bookData={book} />
+            <BookDetailsNonModal bookData={book} />
           </div>
         ))
       )}
-
     </div>
 
   );
