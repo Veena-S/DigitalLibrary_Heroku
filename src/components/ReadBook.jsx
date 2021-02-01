@@ -17,7 +17,7 @@ export default function ReadBook({ bookData, showBook, setShowBook }) {
       scrollable
       dialogClassName="modal-90w"
     >
-      <Modal.Header closeButton={false}>
+      <Modal.Header closeButton closeLabel="">
         <Modal.Title id={`modal-title-${bookData.id}`}>{bookData.title}</Modal.Title>
       </Modal.Header>
       <Modal.Body>

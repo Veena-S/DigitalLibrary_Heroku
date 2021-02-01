@@ -1,32 +1,59 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import ListBooks from './components/ListBooks.jsx';
-import LoginForm from './components/LoginForm.jsx';
 import SearchBooks from './components/SearchBooks.jsx';
 import DisplayBooksList from './components/DisplayBooksList.jsx';
+import LoginForm from './components/LoginForm.jsx';
+import CustNavbar from './components/Navbar.jsx';
 
 export default function App() {
-  const [loggedInUser, setLoggedInUser] = useState(null);
-  const [booksList, setBooksList] = useState([]);
-  const [searchResultBooksList, setSearchResult] = useState([]);
+  const [loggedInUser, setLoggedInUser] = useState('Guest');
+  const [completeBooksList, setCompleteBooksList] = useState([]);
+  const [booksPerCategory, setBooksPerCategory] = useState({});
+  const [bookListToDisplay, setBookListToDisplay] = useState([]);
+  const [showLoginForm, setShowLoginForm] = useState(false);
+
+  useEffect(() => {
+    axios.get('/isLoggedIn')
+      .then((responseData) => {
+        if (responseData.data.userName === '') {
+          setLoggedInUser('Guest');
+        }
+        else {
+          setLoggedInUser(responseData.data.userName); }
+      })
+      .catch((error) => {
+        console.log(error);
+        setLoggedInUser('Guest');
+      });
+  });
 
   return (
     <div className="container justify-content-center">
-      <div className="row">
-        <h3 className="text-center mt-4">Digital Library</h3>
-      </div>
-      <ListBooks setBooksList={setBooksList} setLoggedInUser={setLoggedInUser} />
-      {loggedInUser === null && (<LoginForm setLoggedInUser={setLoggedInUser} />)}
-      {loggedInUser !== null
+      <CustNavbar
+        loggedInUser={loggedInUser}
+        setLoggedInUser={setLoggedInUser}
+        setShowLoginForm={setShowLoginForm}
+      />
+
+      {(!showLoginForm)
       && (
-      <SearchBooks
-        setSearchResult={setSearchResult}
-        booksList={[...booksList]}
+      <ListBooks
+        setCompleteBooksList={setCompleteBooksList}
+        setBookListToDisplay={setBookListToDisplay}
+        setBooksPerCategory={setBooksPerCategory}
       />
       )}
-      <DisplayBooksList
-        booksListToDisplay={searchResultBooksList}
-      />
-      {/* {loggedInUser !== null && (<ListBooks setBooksList={setBooksList} />)} */}
+
+      {(!showLoginForm)
+      && (<DisplayBooksList booksListToDisplay={bookListToDisplay} />)}
+
+      {(!showLoginForm) && (
+      <SearchBooks setSearchResult={setBookListToDisplay} booksList={[...completeBooksList]} />)}
+
+      {showLoginForm
+      && (<LoginForm setLoggedInUser={setLoggedInUser} setShowLoginForm={setShowLoginForm} />)}
+
     </div>
   );
 }

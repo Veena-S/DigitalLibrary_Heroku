@@ -10,6 +10,12 @@ export default function userModel(sequelize, dataTypes) {
       allowNull: false,
       type: dataTypes.STRING,
       unique: true,
+      validate: {
+        notIn: {
+          args: [['Guest', 'guest']],
+          msg: 'User name is already taken',
+        },
+      },
     },
     email: {
       allowNull: false,

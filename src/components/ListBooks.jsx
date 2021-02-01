@@ -3,17 +3,32 @@ import axios from 'axios';
 
 import DisplayBooksList from './DisplayBooksList.jsx';
 
-export default function ListBooks({ setBooksList, setLoggedInUser }) {
-  const [allBooksList, setAllBooksList] = useState([]);
+export default function ListBooks({
+  setCompleteBooksList,
+  setBookListToDisplay, setBooksPerCategory,
+}) {
+  // const [allBooksList, setAllBooksList] = useState([]);
+
+  const separateBooksPerCategory = (listOfAllBooks) => {
+    const booksPerCategory = {};
+    const distinctGenres = [...new Set(listOfAllBooks.map((book) => book.genre))];
+    // Initializing an entry for each genre in the book list
+    distinctGenres.forEach((currGenre) => { booksPerCategory[currGenre] = []; });
+    listOfAllBooks.forEach((book) => {
+      booksPerCategory[book.genre].append(book);
+    });
+    setBooksPerCategory({ ...booksPerCategory });
+  };
 
   const handleGetAllBooks = () => {
     axios.get('/all')
       .then((responseData) => {
         console.log(responseData.data);
         console.log([...responseData.data.books]);
-        setBooksList([...responseData.data.books]);
-        setAllBooksList([...responseData.data.books]);
-        setLoggedInUser(responseData.data.userName);
+        setCompleteBooksList([...responseData.data.books]);
+        // setAllBooksList([...responseData.data.books]);
+        setBookListToDisplay([...responseData.data.books]);
+        separateBooksPerCategory([...responseData.data.books]);
       })
       .catch((error) => {
         console.log(error);
@@ -26,10 +41,10 @@ export default function ListBooks({ setBooksList, setLoggedInUser }) {
     <div className="mt-4">
       <div className="row">
         {/* <button type="button" onClick={handleGetAllBooks}>Get all Books</button> */}
-        <DisplayBooksList
+        {/* <DisplayBooksList
+          id="all-books-list"
           booksListToDisplay={allBooksList}
-        />
-
+        /> */}
       </div>
     </div>
   );

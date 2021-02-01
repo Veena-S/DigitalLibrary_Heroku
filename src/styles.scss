@@ -7,6 +7,11 @@ body {
   height: 300px !important;
 }
 
+.cover-page-thumb {
+  width: 160px;
+  height: 230px;
+}
+
 .wrap-col {
   height: 400px;
   overflow: hidden;
@@ -37,4 +42,84 @@ body {
 
 .modal-content {
   height: 100%;
+}
+
+.close {
+  box-sizing: content-box;
+  width: 1em;
+  height: 1em;
+  padding: 0.25em 0.25em;
+  color: #000;
+  background: transparent;
+  border: 0;
+  border-radius: 0.25rem;
+  opacity: 0.5;
+}
+
+.top-header {
+  line-height: 1;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.header-logo {
+  font-family: "Playfair Display", Georgia, "Times New Roman", serif;
+  font-size: 2.25rem;
+}
+
+a {
+  text-decoration: none;
+  background-color: transparent;
+}
+
+.navbar {
+  margin-top: 0.5rem;
+}
+
+.navbar-brand {
+  padding-left: 1rem;
+}
+
+#basic-navbar-nav {
+  // margin-left: 70%;
+}
+
+.dropdown-item:hover {
+  color: #0a58ca;
+}
+
+// .nav-scroller {
+//   position: relative;
+//   z-index: 2;
+//   height: 2.75rem;
+//   overflow-y: hidden;
+// }
+
+// bootstrap class overridden for search bar
+.search-by-label {
+  background-color: black;
+  color: rgba($color: rgb(255, 255, 255), $alpha: 0.5);
+  font-size: 0.875rem;
+}
+
+.items-select-list {
+  font-size: 0.875rem;
+}
+
+.search-col {
+  padding: 0rem 1rem 1rem;
+}
+
+#login-details {
+  margin-top: 5rem;
+  margin-bottom: 10px;
+  padding: 10px 40px 10px 40px;
+}
+
+#login-details .input-group {
+  margin-bottom: 10px;
+}
+
+#submit-login,
+#submit-login {
+  margin: 0.5rem;
 }

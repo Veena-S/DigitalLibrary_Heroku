@@ -20,8 +20,9 @@ export default function routes(app) {
   app.post('/signup', userController.handleNewUserRegister);
   app.post('/login', userController.handleLoginRequest);
   app.delete('/logout', userController.handleLogoutRequest);
+  app.get('/isLoggedIn', userValidatorLib.authenticateRequestUsingCookies, userController.handleLoggedInValidation);
 
-  app.get('/all', userValidatorLib.authenticateRequestUsingCookies, booksController.getAllBooks);
+  app.get('/all', booksController.getAllBooks);
   app.get('/search', booksController.search);
   app.get('/search/:bookId', booksController.searchByBookId);
   app.get('/read/:bookId', userValidatorLib.authenticateRequestUsingCookies, booksController.readBook);

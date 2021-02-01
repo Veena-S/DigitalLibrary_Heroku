@@ -73,6 +73,16 @@ export default function users(dbModels) {
   };
 
   /**
+   * Function that handles the request to check whether there is any user already logged in
+   * @param request
+   * @param response
+   */
+  const handleLoggedInValidation = (request, response) => {
+    const { message, userName } = (request.isUserLoggedIn) ? { message: 'User already logged in', userName: request.userInfo.name } : { message: 'User not logged in', userName: '' };
+    response.send({ success: true, message, userName });
+  };
+
+  /**
    *
    * @param request - HTTP request object received through the routes.mjs
    * @param response - HTTP response object received through the routes.mjs
@@ -82,7 +92,8 @@ export default function users(dbModels) {
    */
   const handleNewUserRegister = ((request, response) => {
     console.log('handleNewUserRegister');
-    const { name, email, password } = request.body;
+    const { email, password } = request.body;
+    const name = email.substr(0, email.find('@'));
     const hashedPassword = generatedHashedValue(password, false);
 
     console.log(`Request: ${email}, ${password}, Hashed Password: ${hashedPassword}`);
@@ -151,6 +162,6 @@ export default function users(dbModels) {
 
   // The users() function wil return the functions defined
   return {
-    handleNewUserRegister, getAllUsers, getUserByEmail, handleLoginRequest, handleLogoutRequest,
+    handleNewUserRegister, getAllUsers, getUserByEmail, handleLoginRequest, handleLogoutRequest, handleLoggedInValidation,
   };
 }

@@ -3,16 +3,16 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable jsx-a11y/interactive-supports-focus */
 import React, { useState } from 'react';
-
 import ReadBook from './ReadBook.jsx';
 
-export default function BookDetails({ bookData }) {
+export default function BookDetails({ bookData, loggedInUser }) {
   // This is to find whether the ReadBook button is clicked
   const [isBookRead, setIsBookRead] = useState(false);
   // To show or hide the "collapse" of book details
   const [isBookDetailsCollapsed, setIsBookDetailsCollapsed] = useState(true);
   // To show & hide the book modal
   const [showBook, setShowBook] = useState(false);
+  const [disableRead, setDisableRead] = useState((loggedInUser === ''));
 
   const handleToggleBookDetails = () => {
     setIsBookDetailsCollapsed(!isBookDetailsCollapsed); };
@@ -51,16 +51,20 @@ export default function BookDetails({ bookData }) {
             </div>
             <div className="col">
               <div className="row">
-                <h1><span>{bookData.title}</span></h1>
+                <h3><span>{bookData.title}</span></h3>
                 {/* <h3>{bookData.subTitle}</h3> */}
-                <h3>{bookData.author}</h3>
+                <h5>{bookData.author}</h5>
                 {/* <h4>{bookData.publisher}</h4>
             <h5>{bookData.published_date}</h5>
             <h6>{bookData.total_pages}</h6> */}
               </div>
               <div className="row">
-                <a className="btn btn-secondary" role="button" href={`/${bookData.content_location}`}>Download</a>
-                <button className="btn-sm btn-secondary mt-2" type="button" onClick={handleReadBook}>Read</button>
+                <div className="col-3">
+                  <a className="btn btn-sm btn-outline-dark" role="button" href={`/${bookData.content_location}`} disabled={disableRead}>Download</a>
+                </div>
+                <div className="col-3 ml-2">
+                  <button className="btn btn-sm btn-dark" type="button" onClick={handleReadBook} disabled={disableRead}>Read</button>
+                </div>
               </div>
             </div>
           </div>
