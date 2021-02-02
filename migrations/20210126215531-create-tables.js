@@ -23,9 +23,9 @@ module.exports = {
         genre: {
           type: Sequelize.STRING,
         },
-        // publisher: {
-        //   type: Sequelize.STRING,
-        // },
+        publisher: {
+          type: Sequelize.STRING,
+        },
         language: {
           type: Sequelize.STRING,
         },
@@ -41,13 +41,13 @@ module.exports = {
         cover_page: {
           type: Sequelize.STRING,
         },
-        // published_date: {
-        //   type: Sequelize.DATE,
-        // },
+        published_date: {
+          type: Sequelize.DATE,
+        },
         released_date: {
           type: Sequelize.DATE,
         },
-        total_copies: {
+        total_pages: {
           type: Sequelize.INTEGER,
         },
         created_at: {

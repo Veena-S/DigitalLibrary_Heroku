@@ -2,6 +2,29 @@ import React, { useState } from 'react';
 import ReadBook from './ReadBook.jsx';
 
 export default function BookComp({ bookData, loggedInUser }) {
+  const getMonthName = (monthId) => {
+    const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
+      'July', 'August', 'September', 'October', 'November', 'December',
+    ];
+    return monthNames[monthId];
+  };
+
+  const getFormatDate = (dateValue) => {
+    console.log(dateValue);
+    const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
+      'July', 'August', 'September', 'October', 'November', 'December',
+    ];
+    const valDate = new Date(dateValue);
+    // return `${valDate.getDate()} ${monthNames[valDate.getMonth()]}, ${valDate.getFullYear()}`;
+    return `${monthNames[valDate.getMonth()]} ${valDate.getFullYear()}`;
+  };
+
+  const publishedDate = `${getFormatDate(bookData.published_date)}`;
+
+  // // To DO: https://medium.com/@beedaan/partial-collapse-with-bootstrap-3-ef4e6bf85537
+  // const summaryParaEl = document.getElementById('summary-p');
+  // const summaryParaVisibleLineHeight = summaryParaEl.style.fontSize * summaryParaEl.style.lineHeight * 3;
+
   const [showBook, setShowBook] = useState(false);
   const [disableRead, setDisableRead] = useState((loggedInUser === 'Guest'));
   const handleShowBook = () => setShowBook(true);
@@ -23,21 +46,22 @@ export default function BookComp({ bookData, loggedInUser }) {
           <div className="row">
             <h4><span>{bookData.title}</span></h4>
             <br />
-            <h4>{bookData.subTitle}</h4>
-            <h5>{bookData.author}</h5>
+            <img className="author-image" src={bookData.author_image} alt={bookData.author} />
+            <h6 className="cust-font-size-9">
+              {bookData.author}
+            </h6>
             <br />
-            <p>
+            <br />
+            <p className="cust-font-size-9">
               {bookData.publisher}
               {' '}
               <br />
-              {bookData.published_date}
+              {publishedDate}
               <br />
+              {'Pages: '}
               {bookData.total_pages}
               <br />
             </p>
-            {/* <h6>{bookData.publisher}</h6>
-                <h6>{bookData.published_date}</h6>
-                <h6>{bookData.total_pages}</h6> */}
           </div>
           <div className="row justify-content-end">
             <div className="col-3 me-5">
@@ -52,7 +76,7 @@ export default function BookComp({ bookData, loggedInUser }) {
       </div>
       <div className="row mt-2">
         <h6>Summary:</h6>
-        <p>{bookData.summary}</p>
+        <p id="summary-p">{bookData.summary}</p>
       </div>
       <ReadBook bookData={bookData} showBook={showBook} setShowBook={setShowBook} />
     </div>

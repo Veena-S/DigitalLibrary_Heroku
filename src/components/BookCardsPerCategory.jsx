@@ -1,8 +1,12 @@
-import React, { useState, useRef, useLayoutEffect } from 'react';
+import React, {
+  useState, useRef, useLayoutEffect, useEffect,
+} from 'react';
 import SingleBookCard from './SingleBookCard.jsx';
 
 export default function BookCardsPerCategory({ category, bookList, loggedInUser }) {
   const [seeCompleteList, setSeeCompleteList] = useState(false);
+  const [displayList, setDisplayList] = useState([]);
+  const [seeMoreLessButtonText, setSeeMoreLessButtonText] = useState('See More');
   const targetRef = useRef();
   const [bookListDimensions, setBookListDimensions] = useState({ width: 0, height: 0 });
   const booksCountPerRow = 6;
@@ -28,11 +32,28 @@ export default function BookCardsPerCategory({ category, bookList, loggedInUser 
 
   console.log('BookCardsPerCategory = ', category, bookList);
 
-  const initialListOfBooks = bookList.slice(0, initialListCount).map((book) => (
+  const initialListOfBookElements = bookList.slice(0, initialListCount).map((book) => (
+    <SingleBookCard book={book} loggedInUser={loggedInUser} />));
+  useEffect(() => { setDisplayList([...initialListOfBookElements]); }, []);
+
+  const moreListOfBookElements = bookList.slice(initialListCount).map((book) => (
+    <SingleBookCard book={book} loggedInUser={loggedInUser} />));
+
+  const fullListOfBookElements = bookList.map((book) => (
     <SingleBookCard book={book} loggedInUser={loggedInUser} />));
 
   const handleSeeMoreBooks = () => {
-    setSeeCompleteList(true);
+    // Check the see complete list value before modifying
+    if (seeCompleteList) {
+      setSeeCompleteList(false);
+      setDisplayList([...initialListOfBookElements]);
+      setSeeMoreLessButtonText('See More');
+    }
+    else {
+      setSeeCompleteList(true);
+      setDisplayList([...fullListOfBookElements]);
+      setSeeMoreLessButtonText('See Less');
+    }
   };
 
   return (
@@ -42,19 +63,25 @@ export default function BookCardsPerCategory({ category, bookList, loggedInUser 
           <h4>{category}</h4>
         </div>
         <div className="col">
-          <button type="button" className="btn btn-sm btn-info" data-bs-toggle="collapse" data-bs-target={`#see-more-books-${category}`} aria-expanded="false" aria-controls={`see-more-books-${category}`} onClick={handleSeeMoreBooks}>See more</button>
+          <button type="button" className="btn btn-sm btn-info" data-bs-toggle="collapse" data-bs-target={`#see-more-books-${category}`} aria-expanded="false" aria-controls={`see-more-books-${category}`} onClick={handleSeeMoreBooks}>{seeMoreLessButtonText}</button>
         </div>
       </div>
       <div ref={targetRef} className={`row vw-100 row-cols-1 row-cols-md-${initialListCount} g-4`}>
-        { initialListOfBooks }
+        { displayList }
       </div>
-      <div className={`${!seeCompleteList ? 'collapse' : ''}`} id={`see-more-books-${category}`}>
+      {/* <div ref={targetRef} className={`row vw-100 row-cols-1 row-cols-md-${initialListCount} g-4`}>
+        { initialListOfBookElements }
+        <div className={`${!seeCompleteList ? 'collapse' : ''} g-4`} id={`see-more-books-${category}`}>
+          { (bookList.length > initialListCount)
+          && moreListOfBookElements}
+        </div>
+      </div> */}
+      {/* <div className={`${!seeCompleteList ? 'collapse' : ''}`} id={`see-more-books-${category}`}>
         <div className={`row vw-100 row-cols-1 row-cols-md-${initialListCount} g-4`}>
           { (bookList.length > initialListCount)
-          && (bookList.slice(initialListCount).map((book) => (
-            <SingleBookCard book={book} loggedInUser={loggedInUser} />)))}
+          && moreListOfBooks}
         </div>
-      </div>
+      </div> */}
     </div>
   );
 }

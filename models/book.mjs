@@ -19,9 +19,9 @@ export default function bookModel(sequelize, dataTypes) {
     genre: {
       type: dataTypes.STRING,
     },
-    // publisher: {
-    //   type: dataTypes.STRING,
-    // },
+    publisher: {
+      type: dataTypes.STRING,
+    },
     language: {
       type: dataTypes.STRING,
     },
@@ -37,13 +37,13 @@ export default function bookModel(sequelize, dataTypes) {
     cover_page: {
       type: dataTypes.STRING,
     },
-    // published_date: {
-    //   type: dataTypes.DATE,
-    // },
+    published_date: {
+      type: dataTypes.DATE,
+    },
     released_date: {
       type: dataTypes.DATE,
     },
-    total_copies: {
+    total_pages: {
       type: dataTypes.INTEGER,
     },
     created_at: {
