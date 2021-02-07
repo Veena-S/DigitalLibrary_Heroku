@@ -49,6 +49,7 @@ export default function App() {
         booksList={[...completeBooksList]}
         genreList={[...genreList]}
         setDisplayeSearchResult={setDisplayeSearchResult}
+        booksPerCategory={{ ...booksPerCategory }}
       />
 
       {(!displayeSearchResult && !showLoginForm)

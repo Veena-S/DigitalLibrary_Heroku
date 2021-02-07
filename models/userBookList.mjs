@@ -1,5 +1,5 @@
-export default function userBookLoanModel(sequelize, dataTypes) {
-  return sequelize.define('user_book_loan', {
+export default function userBookListModel(sequelize, dataTypes) {
+  return sequelize.define('user_book_list', {
     id: {
       allowNull: false,
       autoIncrement: true,
@@ -20,17 +20,14 @@ export default function userBookLoanModel(sequelize, dataTypes) {
         key: 'id',
       },
     },
-    borrowed_date: {
+    downloaded_date: {
       type: dataTypes.DATE,
     },
-    borrowed_count: {
+    read_date: {
       type: dataTypes.DATE,
     },
-    expected_return_date: {
-      type: dataTypes.DATE,
-    },
-    returned_date: {
-      type: dataTypes.DATE,
+    last_read_page: {
+      type: dataTypes.INTEGER,
     },
   }, { underscored: true, timestamps: false });
 }

@@ -4,7 +4,7 @@ import allConfig from '../config/config.js';
 
 import bookModel from './book.mjs';
 import userModel from './user.mjs';
-import userBookLoanModel from './userBookLoan.mjs';
+import userBookListModel from './userBookList.mjs';
 
 const env = process.env.NODE_ENV || 'development';
 
@@ -36,19 +36,19 @@ if (env === 'production') {
 
 db.User = userModel(sequelize, Sequelize.DataTypes);
 db.Book = bookModel(sequelize, Sequelize.DataTypes);
-db.UserBookLoan = userBookLoanModel(sequelize, Sequelize.DataTypes);
+db.UserBookList = userBookListModel(sequelize, Sequelize.DataTypes);
 
 // A book can be borrowed by many users
 // A user can borrow many books
-// Many to Many relation through the table user_book_loans
-db.User.belongsToMany(db.Book, { through: 'user_book_loans' });
-db.Book.belongsToMany(db.User, { through: 'user_book_loans' });
+// Many to Many relation through the table user_book_lists
+db.User.belongsToMany(db.Book, { through: 'user_book_lists' });
+db.Book.belongsToMany(db.User, { through: 'user_book_lists' });
 
-db.User.hasMany(db.UserBookLoan);
-db.UserBookLoan.belongsTo(db.User);
+db.User.hasMany(db.UserBookList);
+db.UserBookList.belongsTo(db.User);
 
-db.Book.hasMany(db.UserBookLoan);
-db.UserBookLoan.belongsTo(db.Book);
+db.Book.hasMany(db.UserBookList);
+db.UserBookList.belongsTo(db.Book);
 
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;

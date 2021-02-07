@@ -98,7 +98,7 @@ module.exports = {
         },
       });
 
-    await queryInterface.createTable('user_book_loans',
+    await queryInterface.createTable('user_book_lists',
       {
         id: {
           allowNull: false,
@@ -120,18 +120,24 @@ module.exports = {
             key: 'id',
           },
         },
-        borrowed_date: {
+        downloaded_date: {
           type: Sequelize.DATE,
         },
-        borrowed_count: {
+        read_date: {
           type: Sequelize.DATE,
         },
-        expected_return_date: {
-          type: Sequelize.DATE,
+        last_read_page: {
+          type: Sequelize.INTEGER,
         },
-        returned_date: {
-          type: Sequelize.DATE,
-        },
+        // borrowed_count: {
+        //   type: Sequelize.DATE,
+        // },
+        // expected_return_date: {
+        //   type: Sequelize.DATE,
+        // },
+        // returned_date: {
+        //   type: Sequelize.DATE,
+        // },
         // created_at: {
         //   allowNull: false,
         //   type: Sequelize.DATE,

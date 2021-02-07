@@ -57,7 +57,7 @@ export default function BookCardsPerCategory({ category, bookList, loggedInUser 
   };
 
   return (
-    <div className="mt-4">
+    <div className="mt-4 per-category">
       <div className="row mb-2">
         <div className="col-8">
           <h4>{category}</h4>
