@@ -9,15 +9,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/rocketacademy/react-hotpot-swe1.git"
+    "url": "git+https://github.com/Veena-S/DigitalLibrary_Heroku.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/rocketacademy/react-hotpot-swe1/issues"
+    "url": "https://github.com/Veena-S/DigitalLibrary_Heroku/issues"
   },
-  "homepage": "https://github.com/rocketacademy/react-hotpot-swe1#readme",
+  "homepage": "https://github.com/Veena-S/DigitalLibrary_Heroku#bookshelf",
   "devDependencies": {
     "@babel/core": "^7.12.10",
     "@babel/preset-env": "^7.12.11",
