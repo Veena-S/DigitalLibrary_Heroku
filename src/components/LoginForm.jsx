@@ -37,7 +37,7 @@ export default function LoginForm({ setLoggedInUser, setShowLoginForm }) {
       })
       .catch((error) => {
         console.log(error);
-        setLoggedInUser(null);
+        setLoggedInUser('Guest');
         setShowLoginForm(false);
       });
   };
@@ -80,36 +80,4 @@ export default function LoginForm({ setLoggedInUser, setShowLoginForm }) {
     </div>
 
   );
-
-  // return (
-  //   <div>
-  //     <div className="form-row" id="login-details">
-  //       <div className="input-group mb-3">
-  //         <span className="input-group-text" id="text-inputEmail">📧</span>
-  //         <input type="email" id="email" className="form-control" value={email} name="email" placeholder="E-mail" aria-label="E-mail" aria-describedby="text-inputEmail" onChange={handleEmailChange} />
-  //       </div>
-  //     </div>
-
-  //     <div className="form-row">
-  //       <div className="input-group mb-3">
-  //         <span className="input-group-text" id="text-inputPassword">🔑</span>
-  //         <input type="password" id="password" className="form-control" value={password} name="password" placeholder="Password" aria-label="Password" aria-describedby="text-inputPassword" onChange={handlePasswordChange} />
-  //       </div>
-  //     </div>
-
-  //     <div className="form-row row justify-content-centre">
-  //       <div className="col-sm-4">
-  //         <button type="button" id="submit-login" className="btn btn-sm" onClick={handleLoginUser}>Login</button>
-  //       </div>
-  //       <div className="col-sm-4">
-  //         <button type="button" id="submit-signup" className="btn btn-sm" onClick={handleSignupUser}>Sign-up</button>
-  //       </div>
-  //       {/* <div className="col-sm-4 guest">
-  //         <button type="button" id="as-guest" className="btn btn-sm" onClick={handleEnterAsGuest}>Enter as a Guest</button>
-  //       </div> */}
-  //     </div>
-
-  //   </div>
-
-  // );
 }

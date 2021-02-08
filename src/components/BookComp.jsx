@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import ReadBook from './ReadBook.jsx';
 
 export default function BookComp({ bookData, loggedInUser }) {
@@ -29,8 +30,10 @@ export default function BookComp({ bookData, loggedInUser }) {
   const [disableRead, setDisableRead] = useState((loggedInUser === 'Guest'));
   const handleShowBook = () => setShowBook(true);
   const handleReadBook = () => {
-    // To do: Update database for user-book
     handleShowBook();
+    // axios.post(`/read/${bookData.id}`)
+    //   .then((resp) => { console.log(resp); })
+    //   .catch((err) => { console.log(err); });
   };
 
   return (

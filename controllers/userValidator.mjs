@@ -39,6 +39,7 @@ export default function userValidator(dbModels) {
    * @param response
    */
   const findUser = async (email, request, response) => {
+    console.log('findUser: ', email);
     try {
       request.userInfo = await dbModels.User.findOne({
         where: { email },
@@ -47,9 +48,9 @@ export default function userValidator(dbModels) {
     }
     catch (error)
     {
-      console.log(error);
+      console.log(error, ' - findUser');
       // throw error;
-      response.status(300).send({ success: false, message: 'User not found. Please signup', error });
+      response.status(300).send({ success: false, message: 'User not found in db. Please signup - findUser', error });
     }
     request.isUserLoggedIn = true;
   };
@@ -74,7 +75,6 @@ export default function userValidator(dbModels) {
     if (loggedInSession === '' && userInfo === '')
     {
       console.log('authenticateRequestUsingCookies - not logged in');
-      // throw new Error('Please login or signup');
       response.status(300).send({ success: false, message: 'Please login or signup' });
     }
     if (validateSessionUserByCookies(loggedInSession, userInfo))
@@ -85,7 +85,6 @@ export default function userValidator(dbModels) {
         next();
       } catch (error) {
         console.log('authenticateRequestUsingCookies - User not found');
-        // throw new Error('User not found');
         response.status(300).send({ success: false, message: 'User not found. Please signup', error });
       }
     }

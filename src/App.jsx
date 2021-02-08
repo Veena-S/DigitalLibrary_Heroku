@@ -19,6 +19,7 @@ export default function App() {
   useEffect(() => {
     axios.get('/isLoggedIn')
       .then((responseData) => {
+        console.log(responseData.data);
         if (responseData.data.userName === '') {
           setLoggedInUser('Guest');
         }

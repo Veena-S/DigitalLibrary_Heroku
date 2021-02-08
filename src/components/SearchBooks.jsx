@@ -18,22 +18,9 @@ export default function SearchBooks({
   const [selectedSearchCriteria, setSelectedSearchCriteria] = useState('');
   const [searchByValue, setSearchByValue] = useState('');
 
-  // const handleSearch = () => {
-  //   axios.get(`/search?key=${selectedSearchCriteria}&&value=${searchByValue}`)
-  //     .then((responseData) => {
-  //       console.log(responseData.data);
-  //       console.log([...responseData.data.books]);
-  //       setSearchResult([...responseData.data.books]);
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //     });
-  // };
-
   const handleSearch = () => {
     const searchResult = booksList.filter((book) => {
       if (Object.prototype.hasOwnProperty.call(book, selectedSearchCriteria)) {
-        // return (book[selectedSearchCriteria] === searchByValue);
         return (book[selectedSearchCriteria].search(new RegExp(searchByValue, 'i')) !== -1);
       }
       return false; });
@@ -51,9 +38,7 @@ export default function SearchBooks({
 
   const handleFilterGenreByProperty = (propertyValue) => {
     console.log('handleFilterGenreByProperty: ', propertyValue);
-    // const searchResult = booksList.filter((book) => {
-    //   Object.keys(book).forEach((bookProperty) => (bookProperty.search(new RegExp(propertyValue, 'i')) !== -1));
-    // });
+
     const searchResult = booksPerCategory[propertyValue];
     setSearchResult([...searchResult]);
     setDisplayeSearchResult(true);

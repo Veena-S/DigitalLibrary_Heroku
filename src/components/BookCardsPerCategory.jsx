@@ -11,21 +11,6 @@ export default function BookCardsPerCategory({ category, bookList, loggedInUser 
   const [bookListDimensions, setBookListDimensions] = useState({ width: 0, height: 0 });
   const booksCountPerRow = 6;
 
-  // const [initialListCount, setInitialListCount] = useState(6);
-
-  // useLayoutEffect(() => {
-  //   if (targetRef.current) {
-  //     setBookListDimensions({
-  //       width: targetRef.current.offsetWidth,
-  //       height: targetRef.current.offsetHeight,
-  //     });
-  //     booksCountPerRow = bookListDimensions.width / bookList.length;
-  //     booksCountPerRow = (booksCountPerRow > 6) ? 6 : booksCountPerRow;
-  //     setInitialListCount((bookList.length > booksCountPerRow)
-  //       ? booksCountPerRow : bookList.length);
-  //   }
-  // }, []);
-
   const initialListCount = (bookList.length > booksCountPerRow)
     ? booksCountPerRow : bookList.length;
   console.log(initialListCount);
@@ -69,19 +54,7 @@ export default function BookCardsPerCategory({ category, bookList, loggedInUser 
       <div ref={targetRef} className={`row vw-100 row-cols-1 row-cols-md-${initialListCount} g-4`}>
         { displayList }
       </div>
-      {/* <div ref={targetRef} className={`row vw-100 row-cols-1 row-cols-md-${initialListCount} g-4`}>
-        { initialListOfBookElements }
-        <div className={`${!seeCompleteList ? 'collapse' : ''} g-4`} id={`see-more-books-${category}`}>
-          { (bookList.length > initialListCount)
-          && moreListOfBookElements}
-        </div>
-      </div> */}
-      {/* <div className={`${!seeCompleteList ? 'collapse' : ''}`} id={`see-more-books-${category}`}>
-        <div className={`row vw-100 row-cols-1 row-cols-md-${initialListCount} g-4`}>
-          { (bookList.length > initialListCount)
-          && moreListOfBooks}
-        </div>
-      </div> */}
+
     </div>
   );
 }

@@ -62,22 +62,29 @@ export default function books(db) {
    * @param response
    */
   const readBook = async (request, response) => {
-
-  };
-
-  const borrowBook = async (request, response) => {
-
-  };
-
-  const returnBook = async (request, response) => {
-
-  };
-
-  const reserveBook = async (request, response) => {
-
+    let bookData = await db.UserBookList.findOne({
+      where: {
+        [db.Sequelize.and]: [{ book_id: request.body.bookId }, { user_id: request.userInfo.id }],
+      },
+    });
+    if (bookData === null || undefined === bookData) {
+      bookData = await db.UserBookList.Create({
+        book_id: request.body.bookId,
+        user_id: request.userInfo.id,
+        read_date: new Date(),
+      });
+      response.send({ bookData });
+    }
+    else {
+      bookData.read_date = new Date();
+      bookData.changed('read_date', true);
+      const updatedData = await bookData.save();
+      console.log(updatedData);
+      response.send({ bookData: updatedData });
+    }
   };
 
   return {
-    getAllBooks, search, searchByBookId, readBook, borrowBook, returnBook, reserveBook,
+    getAllBooks, search, searchByBookId, readBook,
   };
 }

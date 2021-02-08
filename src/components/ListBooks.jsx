@@ -39,14 +39,6 @@ export default function ListBooks({
   useEffect(() => { handleGetAllBooks(); }, []);
 
   return (
-    <div>
-      {/* <div className="row"> */}
-      {/* <button type="button" onClick={handleGetAllBooks}>Get all Books</button> */}
-      {/* <DisplayBooksList
-          id="all-books-list"
-          booksListToDisplay={allBooksList}
-        /> */}
-      {/* </div> */}
-    </div>
+    <div />
   );
 }

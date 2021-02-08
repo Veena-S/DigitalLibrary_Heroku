@@ -78,6 +78,7 @@ export default function users(dbModels) {
    * @param response
    */
   const handleLoggedInValidation = (request, response) => {
+    console.log('handleLoggedInValidation');
     const { message, userName } = (request.isUserLoggedIn) ? { message: 'User already logged in', userName: request.userInfo.name } : { message: 'User not logged in', userName: '' };
     response.send({ success: true, message, userName });
   };
