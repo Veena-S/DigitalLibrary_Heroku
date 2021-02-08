@@ -1,10 +1,10 @@
 {
-  "name": "react-hotpot-swe1",
+  "name": "bookshelf",
   "version": "1.0.0",
   "description": "",
   "main": "index.mjs",
   "scripts": {
-    "start": "node index.js",
+    "start": "node index.mjs",
     "test": "node test.js"
   },
   "repository": {
